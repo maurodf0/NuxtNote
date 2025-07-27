@@ -1,6 +1,33 @@
 <script setup lang="ts">
 
+interface User {
+  email: string,
+  psw: string
+}
 
+  const email = ref<string>('');
+  const psw = ref<string>('');
+
+
+const handleSubmit = async () => {
+  if(!email.value || !psw.value) {
+    alert('You have to provide email and password for register');
+    return ;
+  }
+  const user: User = {
+    email: email.value,
+    psw: psw.value
+  }
+
+  const response = await $fetch('/api/user', {
+    method: 'POST',
+    body: user
+  })
+
+  console.log(response);
+  email.value = '';
+  psw.value = '';
+}
 </script>
 
 <template>
@@ -13,11 +40,15 @@
         <NuxtLink class="underline" to="/login">Login to your account</NuxtLink>
       </p>
 
-      <form class="flex flex-col gap-1 mt-8">
+      <form 
+        class="flex flex-col gap-1 mt-8"
+        @submit.prevent="handleSubmit">
         <div>
-          <label for="email" class="block mb-2 text-sm font-medium text-white">Email</label>
+          <label           
+          for="email" class="block mb-2 text-sm font-medium text-white">Email</label>
           <input 
           id="email" 
+          v-model="email"
           type="email"  
           placeholder="markred@gmail.com"
           class="bg-zinc-800 border border-zinc-700 rounded-md py-2 px-4 block w-full placeholder:text-zinc-500">
@@ -26,8 +57,8 @@
         <div class="mt-4">
           <label for="password" class="block mb-2 text-sm font-medium">Password</label>
           <input 
+          v-model="psw"
           type="password" 
-          for="password"
           class="w-full bg-zinc-800 border rounded-md py-2 px-4 block placeholder:text-zinc-500 border-zinc-700">
         </div>
 
