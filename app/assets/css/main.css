@@ -5,3 +5,11 @@
 html {
   @apply bg-gray-900 text-gray-100;
 }
+
+a {
+  @apply text-[#FFAC00];
+}
+
+body {
+  font-family: "Inter", sans-serif;
+}
