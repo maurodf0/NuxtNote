@@ -7,6 +7,7 @@ interface User {
 
   const email = ref<string>('');
   const psw = ref<string>('');
+  const msg = ref<string>('');
 
 
 const handleSubmit = async () => {
@@ -25,8 +26,15 @@ const handleSubmit = async () => {
   })
 
   console.log(response);
+  msg.value = response.message;
   email.value = '';
   psw.value = '';
+
+  setTimeout( () => {
+
+    msg.value = '';
+  }, 5000
+  )
 }
 </script>
 
@@ -69,7 +77,7 @@ const handleSubmit = async () => {
 
     </div>
     <div class="main bg-zinc-800 md:w-[70%] w-full">
-      <h1>Hello Register</h1>
+      <h1>{{ msg }}</h1>
     </div>
   </div>
 </template>
