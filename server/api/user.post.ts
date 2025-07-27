@@ -1,10 +1,15 @@
 // Post User API Endpoint
+
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
 export default defineEventHandler( async (event) => {
-  const {email, password} = await readBody(event);
+  const {email, psw} = await readBody(event);
   await prisma.user.create({
     data: {
       email,
-      password
+      password: psw, 
     }
   });
   return {
