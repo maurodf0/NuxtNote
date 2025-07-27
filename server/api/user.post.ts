@@ -1,9 +1,14 @@
 // Post User API Endpoint
 
 export default defineEventHandler( async (event) => {
-  const body = await readBody(event);
-  console.log(body);
+  const {email, password} = await readBody(event);
+  await prisma.user.create({
+    data: {
+      email,
+      password
+    }
+  });
   return {
-    message: body,
+    message: 'User created successfully',
 } 
 });
