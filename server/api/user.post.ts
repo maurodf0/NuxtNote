@@ -19,6 +19,20 @@ export default defineEventHandler( async (event) => {
       });
   } 
 
+  if(!validator.isStrongPassword(psw, {
+    minLength: 8,
+    minLowercase: 1,
+    minUppercase: 1,
+    minNumbers: 1,
+    minSymbols: 1
+  })){
+    console.error('Weak password:', psw );
+    throw createError({
+        statusCode: 400,
+        message: 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one symbol',
+      });
+  }
+
   const salt = await bcrypt.genSalt(10);
   const pswhash = await bcrypt.hash(psw, salt);
 
