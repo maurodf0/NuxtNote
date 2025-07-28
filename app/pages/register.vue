@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Swal from 'sweetalert2';
 
 interface User {
   email: string,
@@ -20,6 +21,7 @@ const handleSubmit = async () => {
     psw: psw.value
   }
 
+  try {
   const response = await $fetch('/api/user', {
     method: 'POST',
     body: user
@@ -30,11 +32,22 @@ const handleSubmit = async () => {
   email.value = '';
   psw.value = '';
 
-  setTimeout( () => {
-
-    msg.value = '';
-  }, 5000
-  )
+Swal.fire({
+    title: 'Success',
+    text: msg.value,
+    icon: 'success',
+    confirmButtonText: 'Yaaaay'
+  })
+}
+ catch (error){
+  console.log(error.response?._data.message)
+  Swal.fire({
+    title: 'Error',
+    text: error.response?._data.message,
+    icon: 'error',
+    confirmButtonText: 'Fine, let\'s resolve this'
+  })
+}
 }
 </script>
 
@@ -77,7 +90,7 @@ const handleSubmit = async () => {
 
     </div>
     <div class="main bg-zinc-800 md:w-[70%] w-full">
-      <h1>{{ msg }}</h1>
+      <h1>Main</h1>
     </div>
   </div>
 </template>
