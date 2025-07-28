@@ -8,8 +8,6 @@ interface User {
 
   const email = ref<string>('');
   const psw = ref<string>('');
-  const msg = ref<string>('');
-
 
 const handleSubmit = async () => {
   if(!email.value || !psw.value) {
