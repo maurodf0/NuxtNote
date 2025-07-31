@@ -6,6 +6,9 @@
     ],
   })
 
+definePageMeta({
+  middleware: ['auth']
+})
 </script>
 
 <template>
