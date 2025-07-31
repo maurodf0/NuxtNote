@@ -3,7 +3,7 @@
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcryptjs';
 import validator from 'validator';
-
+import jwt from 'jsonwebtoken';
 
 const prisma = new PrismaClient()
 
@@ -36,13 +36,16 @@ export default defineEventHandler( async (event) => {
   const salt = await bcrypt.genSalt(10);
   const pswhash = await bcrypt.hash(psw, salt);
 
-  await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       email,
       password: pswhash, 
       salt: salt
     }
   });
+
+  const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
+
   return {
     message: 'User created successfully',
 } 
