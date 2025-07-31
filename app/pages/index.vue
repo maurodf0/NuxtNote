@@ -7,7 +7,7 @@
   })
 
 definePageMeta({
-  middleware: ['auth']
+  middleware: ['token']
 })
 </script>
 
