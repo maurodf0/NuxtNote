@@ -32,12 +32,16 @@ const handleSubmit = async () => {
   email.value = '';
   psw.value = '';
 
-Swal.fire({
+const { isConfirmed } = await Swal.fire({
     title: 'Success',
     text: msg.value,
     icon: 'success',
     confirmButtonText: 'Yaaaay'
   })
+
+  if(isConfirmed){
+    navigateTo('/');
+  }
 }
  catch (error){
   console.log(error.response?._data.message)
