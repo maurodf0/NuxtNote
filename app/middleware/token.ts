@@ -1,12 +1,20 @@
-import jsonwebtoken from 'jsonwebtoken'
+export default defineNuxtRouteMiddleware(async (event) => {
+  if (process.client) return
 
-export default defineNuxtRouteMiddleware( (event) => {
+  const { $verifyJwtToken } = useNuxtApp()
 
-  if(process.client) return;
-  const jwt = useCookie<string | undefined>('NuxtNoteJWT');
-  if(!jwt.value){
-   return navigateTo('/register');
+  console.log('middleware fired')
+  const jwt = useCookie('NoteNestJWT')
+  console.log(jwt.value)
+
+  if (!jwt.value) {
+    return navigateTo('/register')
   }
-  var decoded: any = jsonwebtoken.verify(jwt.value, process.env.JWT_SECRET);
 
-});
+  try {
+    await $verifyJwtToken(jwt.value, process.env.JWT_SECRET)
+  } catch (error) {
+    console.log(error)
+    return navigateTo('/register')
+  }
+})
