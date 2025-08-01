@@ -33,8 +33,8 @@ export default defineEventHandler( async (event) => {
       });
   }
 
-  const salt = await bcrypt.genSalt(10);
-  const pswhash = await bcrypt.hash(psw, salt);
+  const salt:string = await bcrypt.genSalt(10);
+  const pswhash:string = await bcrypt.hash(psw, salt);
 
   const user = await prisma.user.create({
     data: {
@@ -44,7 +44,8 @@ export default defineEventHandler( async (event) => {
     }
   });
 
-  const token = jwt.sign({id: user.id}, process.env.JWT_SECRET);
+  const token:string = jwt.sign({id: user.id}, process.env.JWT_SECRET);
+  console.log('User created successfully:', token);
 
   return {
     message: 'User created successfully',
