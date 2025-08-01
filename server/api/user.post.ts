@@ -45,7 +45,7 @@ export default defineEventHandler( async (event) => {
   });
 
   const token:string = jwt.sign({id: user.id}, process.env.JWT_SECRET);
-  console.log('User created successfully:', token);
+  setCookie(event, 'NuxtNoteJWT', token);
 
   return {
     message: 'User created successfully',
