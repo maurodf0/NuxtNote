@@ -22,7 +22,7 @@ const handleSubmit = async () => {
   }
 
   try {
-  const response = await $fetch('/api/login', {
+  const response = await $fetch('/api/user', {
     method: 'POST',
     body: user
   })
