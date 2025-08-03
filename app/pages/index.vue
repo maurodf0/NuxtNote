@@ -18,14 +18,22 @@ definePageMeta({
       <Logo class="mb-8" />
       <h1 class="text-white text-xl mb-4">Write your Note everywhere</h1>
       <p class="text-xs color-zinc-800">Today</p>
-      <div class="notes-wrapper mt-2">
-        <div class="single-note flex flex-col">
+      <div class="notes-wrapper mt-2 pl-2">
+
+        <div class="single-note flex flex-col gap-1 p-2">
           <h3 class="text-sm font-bold text-white">Single note for today</h3>
           <div class="meta flex gap-4 text-xs"> 
             <span class="text-white">Today</span>
             <p>Lorem ipsum dolor sit amet sentiam ki....</p></div>
-         
         </div>
+
+                <div class="single-note bg-[#a1842c] rounded-lg flex flex-col gap-1 p-2">
+          <h3 class="text-sm font-bold text-white">Single note for today</h3>
+          <div class="meta flex gap-4 text-xs"> 
+            <span class="text-white">Today</span>
+            <p>Lorem ipsum dolor sit amet sentiam ki....</p></div>
+        </div>
+
       </div>
 
 
