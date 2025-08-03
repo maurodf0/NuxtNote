@@ -17,10 +17,16 @@ definePageMeta({
     <div class="sidebar bg-black md:w-[25%] flex justify-center px-8 flex-col w-full">
       <Logo class="mb-8" />
       <h1 class="text-white text-xl mb-4">Write your Note everywhere</h1>
-      <p class="text-sm">Don't have an account?
-        <NuxtLink class="underline" to="/register">Register now for free</NuxtLink>
-      </p>
-
+      <p class="text-xs color-zinc-800">Today</p>
+      <div class="notes-wrapper mt-2">
+        <div class="single-note flex flex-col">
+          <h3 class="text-sm font-bold text-white">Single note for today</h3>
+          <div class="meta flex gap-4 text-xs"> 
+            <span>Today</span>
+            <p>Lorem ipsum dolor sit amet sentiam ki....</p></div>
+         
+        </div>
+      </div>
 
 
     </div>
