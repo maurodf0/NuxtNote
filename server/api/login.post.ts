@@ -19,20 +19,6 @@ export default defineEventHandler( async (event) => {
       });
   } 
 
-  if(!validator.isStrongPassword(psw, {
-    minLength: 8,
-    minLowercase: 1,
-    minUppercase: 1,
-    minNumbers: 1,
-    minSymbols: 1
-  })){
-    console.error('Weak password:', psw );
-    throw createError({
-        statusCode: 400,
-        message: 'Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one number, and one symbol',
-      });
-  }
-
   const user = await prisma.user.findUnique({
     where: {
       email,
@@ -40,9 +26,6 @@ export default defineEventHandler( async (event) => {
   });
 
   const isValid:boolean = await bcrypt.compare(psw, user.password);
-
-  console.log('User found:', user);
-  console.log(isValid);
 
   if(!isValid) {
     console.error('Invalid email or password');
