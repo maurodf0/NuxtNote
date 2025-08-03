@@ -44,11 +44,16 @@ export default defineEventHandler( async (event) => {
   console.log('User found:', user);
   console.log(isValid);
 
-  if(!user || !isValid) {
+  if(!isValid) {
+    console.error('Invalid email or password');
     throw createError({
       statusCode: 401,
       message: 'Invalid email or password',
     });
+
+    return {
+      message: 'User logged in successfully',
+    }
 
   const token:string = jwt.sign({id: user.id}, process.env.JWT_SECRET);
   setCookie(event, 'NuxtNoteJWT', token);
@@ -57,6 +62,7 @@ export default defineEventHandler( async (event) => {
     message: 'User created successfully',
 } 
 } 
+
 }
 catch (error: any) {
     console.error('Error creating user:', error.code);

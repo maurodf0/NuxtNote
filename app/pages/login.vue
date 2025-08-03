@@ -28,7 +28,7 @@ const handleSubmit = async () => {
   })
 
   console.log(response);
-  msg.value = response.message;
+  msg.value = response?.message;
   email.value = '';
   psw.value = '';
 
@@ -45,6 +45,7 @@ const { isConfirmed } = await Swal.fire({
 }
  catch (error){
   console.log(error.response?._data.message)
+  console.log(error);
   Swal.fire({
     title: 'Error',
     text: error.response?._data.message,
