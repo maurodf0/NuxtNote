@@ -22,7 +22,7 @@ definePageMeta({
         <div class="single-note flex flex-col">
           <h3 class="text-sm font-bold text-white">Single note for today</h3>
           <div class="meta flex gap-4 text-xs"> 
-            <span>Today</span>
+            <span class="text-white">Today</span>
             <p>Lorem ipsum dolor sit amet sentiam ki....</p></div>
          
         </div>
