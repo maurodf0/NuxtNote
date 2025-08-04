@@ -84,7 +84,7 @@ onMounted( async () => {
       </div>
 
       <div class="note min-h-[70vh] max-w-lg mx-auto mt-4">
-        <p class="text-gray-300/50 font-light italic">Monday - August 4 2025 </p>
+        <p class="text-gray-300/50 font-light italic text-xs mb-2">Monday - August 4 2025 </p>
         <p class="text-gray-300/35 font-light italic mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptates excepturi rem nostrum, laudantium possimus consequatur dicta impedit? Nesciunt inventore ad exercitationem blanditiis omnis, eligendi ducimus officiis ut beatae vel!</p>
 
          <p class="text-gray-300/35 font-light italic mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptates excepturi rem nostrum, laudantium possimus consequatur dicta impedit? Nesciunt inventore ad exercitationem blanditiis omnis, eligendi ducimus officiis ut beatae vel!</p>
