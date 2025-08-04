@@ -9,6 +9,14 @@
 definePageMeta({
   middleware: ['token']
 })
+
+
+
+
+onMounted( async () => {
+  const response = await $fetch('/api/notes');
+  console.log(response);
+})
 </script>
 
 <template>
@@ -66,7 +74,7 @@ definePageMeta({
     <div class="main bg-neutral-900 md:w-[75%] w-full">
 
       <div class="flex justify-between p-8 align-middle items-center">
-        <button class="flex items-center gap-2 hover:text-gray-500"> 
+        <button @click="createNote" class="flex items-center gap-2 hover:text-gray-500"> 
           <Icon name="material-symbols:add" size="20"/> 
           <span>Create Note</span>
         </button>
