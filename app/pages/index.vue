@@ -14,7 +14,7 @@ definePageMeta({
 <template>
   <div class="bg-zinc-800 h-screen flex flex-col md:flex-row">
 
-    <div class="sidebar bg-zinc-900 md:w-[25%] flex p-8 flex-col w-full">
+    <div class="sidebar bg-neutral-800 md:w-[25%] flex p-8 flex-col w-full">
 
       <Logo class="mb-8" />
       <h1 class="text-white text-xl mb-4">Write your Note everywhere</h1>
@@ -63,7 +63,7 @@ definePageMeta({
       </div>
     </div>
 
-    <div class="main bg-black md:w-[75%] w-full">
+    <div class="main bg-neutral-900 md:w-[75%] w-full">
 
       <div class="flex justify-between p-8 align-middle items-center">
         <button class="flex items-center gap-2 hover:text-gray-500"> 
@@ -75,7 +75,7 @@ definePageMeta({
         </button>
       </div>
 
-      <div class="note max-w-lg mx-auto mt-4">
+      <div class="note min-h-[70vh] max-w-lg mx-auto mt-4">
         <p class="text-gray-300/50 font-light italic">Monday - August 4 2025 </p>
         <p class="text-gray-300/35 font-light italic mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptates excepturi rem nostrum, laudantium possimus consequatur dicta impedit? Nesciunt inventore ad exercitationem blanditiis omnis, eligendi ducimus officiis ut beatae vel!</p>
 
@@ -83,7 +83,10 @@ definePageMeta({
 
           <p class="text-gray-300/35 font-light italic mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptates excepturi rem nostrum, laudantium possimus consequatur dicta impedit? Nesciunt inventore ad exercitationem blanditiis omnis, eligendi ducimus officiis ut beatae vel!</p>
       </div>
-     
+      <div class="bottom-action p-8">
+     <Icon 
+     name="material-symbols:arrow-circle-left-rounded" size="26"/> 
+     </div>
     </div>
   </div>
 </template>
