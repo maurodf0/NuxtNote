@@ -25,6 +25,9 @@ export default defineEventHandler( async (event) => {
     }
   });
 
+    const token:string = jwt.sign({id: user.id}, process.env.JWT_SECRET);
+  setCookie(event, 'NuxtNoteJWT', token);
+
   const isValid:boolean = await bcrypt.compare(psw, user.password);
 
   if(!isValid) {
@@ -38,8 +41,7 @@ export default defineEventHandler( async (event) => {
       message: 'User logged in successfully',
     }
 
-  const token:string = jwt.sign({id: user.id}, process.env.JWT_SECRET);
-  setCookie(event, 'NuxtNoteJWT', token);
+
 
   return {
     message: 'User created successfully',
