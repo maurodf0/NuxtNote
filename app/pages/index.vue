@@ -21,7 +21,7 @@ definePageMeta({
 
       <div class="today-notes">
       <p class="text-xs color-zinc-800">Today</p>
-        <div class="notes-wrapper today-container mt-2 pl-2">
+        <div class="notes-wrapper flex flex-col gap-2 today-container mt-2 pl-2">
 
           <div class="single-note flex flex-col gap-1 p-2">
             <h3 class="text-sm font-bold text-white">Single note for today</h3>
@@ -43,7 +43,7 @@ definePageMeta({
 
             <div class="oldest-notes mt-6">
       <p class="text-xs color-zinc-800">Yesterday</p>
-        <div class="notes-wrapper today-container mt-2 pl-2">
+        <div class="notes-wrapper flex flex-col gap-2 today-container mt-2 pl-2">
 
           <div class="single-note flex flex-col gap-1 p-2">
             <h3 class="text-sm font-bold text-white">Single note for today</h3>
