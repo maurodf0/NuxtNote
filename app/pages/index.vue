@@ -67,7 +67,17 @@ definePageMeta({
 
     </div>
     <div class="main bg-zinc-800 md:w-[75%] w-full">
-      <h1>Main</h1>
+      <div class="flex justify-between p-4 align-middle items-center">
+        <button class="flex items-center gap-2"> 
+          <Icon name="material-symbols:add" size="20"/> 
+          <span>Create Note</span>
+        </button>
+        <div>
+          <Icon name="material-symbols:delete-forever-outline" size="32"/>
+        </div>
+      </div>
+     
     </div>
   </div>
 </template>
+
