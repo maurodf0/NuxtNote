@@ -12,9 +12,9 @@ definePageMeta({
 </script>
 
 <template>
-  <div class="bg-zinc-900 h-screen flex flex-col md:flex-row">
+  <div class="bg-zinc-800 h-screen flex flex-col md:flex-row">
 
-    <div class="sidebar bg-black md:w-[25%] flex p-8 flex-col w-full">
+    <div class="sidebar bg-zinc-900 md:w-[25%] flex p-8 flex-col w-full">
 
       <Logo class="mb-8" />
       <h1 class="text-white text-xl mb-4">Write your Note everywhere</h1>
@@ -61,20 +61,27 @@ definePageMeta({
 
         </div>
       </div>
-
-      
-
-
     </div>
-    <div class="main bg-zinc-800 md:w-[75%] w-full">
-      <div class="flex justify-between p-4 align-middle items-center">
-        <button class="flex items-center gap-2"> 
+
+    <div class="main bg-black md:w-[75%] w-full">
+
+      <div class="flex justify-between p-8 align-middle items-center">
+        <button class="flex items-center gap-2 hover:text-gray-500"> 
           <Icon name="material-symbols:add" size="20"/> 
           <span>Create Note</span>
         </button>
-        <div>
-          <Icon name="material-symbols:delete-forever-outline" size="32"/>
-        </div>
+        <button>
+          <Icon name="material-symbols:delete-forever-outline" size="26" class="hover:text-gray-500"/>
+        </button>
+      </div>
+
+      <div class="note max-w-lg mx-auto mt-4">
+        <p class="text-gray-300/50 font-light italic">Monday - August 4 2025 </p>
+        <p class="text-gray-300/35 font-light italic mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptates excepturi rem nostrum, laudantium possimus consequatur dicta impedit? Nesciunt inventore ad exercitationem blanditiis omnis, eligendi ducimus officiis ut beatae vel!</p>
+
+         <p class="text-gray-300/35 font-light italic mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptates excepturi rem nostrum, laudantium possimus consequatur dicta impedit? Nesciunt inventore ad exercitationem blanditiis omnis, eligendi ducimus officiis ut beatae vel!</p>
+
+          <p class="text-gray-300/35 font-light italic mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptates excepturi rem nostrum, laudantium possimus consequatur dicta impedit? Nesciunt inventore ad exercitationem blanditiis omnis, eligendi ducimus officiis ut beatae vel!</p>
       </div>
      
     </div>
