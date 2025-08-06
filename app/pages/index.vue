@@ -10,12 +10,14 @@ definePageMeta({
   middleware: ['token']
 })
 
-const sidebar = useTemplateRef('sidebar');
-const main = useTemplateRef('main');
+const sidebar = useTemplateRef<HTMLDivElement>('sidebar');
+const main = useTemplateRef<HTMLDivElement>('main');
+const arrow = useTemplateRef<HTMLElement>('arrow');
+
 const closeSidebar = () => {
-  console.log('click');
   sidebar.value.classList.toggle('close');
   main.value.classList.toggle('full');
+  arrow.value.classList.toggle('rotate');
 }
 
 
@@ -104,10 +106,12 @@ onMounted( async () => {
     </div>
       <div class="bottom-action p-8">
      <Icon 
-     @click="closeSidebar"
+     ref="arrow"
      name="material-symbols:arrow-circle-left-rounded" 
+     class="pointer arrow-left"
      size="26"
-     class="pointer hover:scale-50;"/> 
+     @click="closeSidebar"
+      />
      </div>
     </div>
   </div>
@@ -127,6 +131,15 @@ onMounted( async () => {
 .main {
   transition: all .5s ease-in-out;
 }
+
+.arrow-left {
+  transition: all .5s ease-in-out;
+}
+
+.arrow-left.rotate{
+  rotate: 180deg !important;
+}
+
 
 .main.full {
   width: 100%;
