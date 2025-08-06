@@ -115,12 +115,14 @@ onMounted( async () => {
 
 <style scoped>
 .sidebar {
-  transition: all .5s ease-in-out;
+  transition: opacity .15s ease-in-out;
+  transition: width .5s ease-in-out;
+
+
 }
 
 .sidebar.close {
   width: 0;
-  opacity: 0;
   padding: 0;
 }
 
