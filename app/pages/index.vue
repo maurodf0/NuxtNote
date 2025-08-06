@@ -119,6 +119,16 @@ onMounted( async () => {
 }
 
 .sidebar.close {
-  transform: translateX(-100%);
+  width: 0;
+  opacity: 0;
+  padding: 0;
+}
+
+.main {
+  transition: all .5s ease-in-out;
+}
+
+.main.full {
+  width: 100%;
 }
 </style>
