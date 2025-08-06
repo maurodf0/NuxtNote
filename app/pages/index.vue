@@ -15,6 +15,7 @@ const main = useTemplateRef('main');
 const closeSidebar = () => {
   console.log('click');
   sidebar.value.classList.toggle('close');
+  main.value.classList.toggle('full');
 }
 
 
@@ -79,8 +80,9 @@ onMounted( async () => {
       </div>
     </div>
 
-    <div class="main bg-neutral-900 md:w-[75%] w-full">
-
+    <div 
+    ref="main" 
+    class="main bg-neutral-900 md:w-[75%] w-full">
       <div class="flex justify-between p-8 align-middle items-center">
         <button @click="createNote" class="flex items-center gap-2 hover:text-gray-500"> 
           <Icon name="material-symbols:add" size="20"/> 
@@ -91,14 +93,15 @@ onMounted( async () => {
         </button>
       </div>
 
-      <div class="note min-h-[70vh] max-w-lg mx-auto mt-4">
+      <div
+      class="note min-h-[70vh] max-w-lg mx-auto mt-4">
         <p class="text-gray-300/50 font-light italic text-xs mb-2">Monday - August 4 2025 </p>
         <p class="text-gray-300/35 font-light italic mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptates excepturi rem nostrum, laudantium possimus consequatur dicta impedit? Nesciunt inventore ad exercitationem blanditiis omnis, eligendi ducimus officiis ut beatae vel!</p>
 
          <p class="text-gray-300/35 font-light italic mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptates excepturi rem nostrum, laudantium possimus consequatur dicta impedit? Nesciunt inventore ad exercitationem blanditiis omnis, eligendi ducimus officiis ut beatae vel!</p>
 
           <p class="text-gray-300/35 font-light italic mb-4">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sapiente voluptates excepturi rem nostrum, laudantium possimus consequatur dicta impedit? Nesciunt inventore ad exercitationem blanditiis omnis, eligendi ducimus officiis ut beatae vel!</p>
-      </div>
+    </div>
       <div class="bottom-action p-8">
      <Icon 
      @click="closeSidebar"
