@@ -10,6 +10,12 @@ definePageMeta({
   middleware: ['token']
 })
 
+const sidebar = useTemplateRef('sidebar');
+const main = useTemplateRef('main');
+const closeSidebar = () => {
+  console.log('click');
+  sidebar.value.classList.toggle('close');
+}
 
 
 
@@ -20,9 +26,11 @@ onMounted( async () => {
 </script>
 
 <template>
-  <div class="bg-zinc-800 h-screen flex flex-col md:flex-row">
+  <div class="h-screen flex flex-col md:flex-row">
 
-    <div class="sidebar bg-neutral-800 md:w-[25%] flex p-8 flex-col w-full">
+    <div 
+    ref="sidebar"
+    class="sidebar bg-neutral-800 md:w-[25%] flex p-8 flex-col w-full">
 
       <Logo class="mb-8" />
       <h1 class="text-white text-xl mb-4">Write your Note everywhere</h1>
@@ -93,9 +101,21 @@ onMounted( async () => {
       </div>
       <div class="bottom-action p-8">
      <Icon 
-     name="material-symbols:arrow-circle-left-rounded" size="26"/> 
+     @click="closeSidebar"
+     name="material-symbols:arrow-circle-left-rounded" 
+     size="26"
+     class="pointer hover:scale-50;"/> 
      </div>
     </div>
   </div>
 </template>
 
+<style scoped>
+.sidebar {
+  transition: all .5s ease-in-out;
+}
+
+.sidebar.close {
+  transform: translateX(-100%);
+}
+</style>
