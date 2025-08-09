@@ -36,6 +36,20 @@ return notes.value.filter( (note) => {
 })
 })
 
+
+const olderNotes = computed(() => {
+  const yesterday = new Date()
+  yesterday.setDate(yesterday.getDate() - 1)
+
+  return notes.value.filter((note) => {
+    const noteDate = new Date(note.updatedAt)
+    return (
+      noteDate < yesterday &&
+      noteDate.toDateString() !== yesterday.toDateString()
+    )
+  })
+})
+
 onMounted( async () => {
   notes.value = await $fetch('/api/notes');
   if(notes.value.length > 0) {
@@ -114,6 +128,40 @@ onMounted( async () => {
           </div>
         </div>
       </div>
+
+
+      <div v-if="olderNotes.length > 0"
+      class="oldest-notes  mt-6">
+        <p class="text-xs color-zinc-800">Oldest</p>
+        <div class="notes-wrapper flex flex-col gap-2 today-container mt-2 pl-2">
+
+          <div v-for="note in olderNotes" :key="note.createdAt"  class="single-note flex flex-col gap-1 p-2 pointer "
+          :class="[
+            'rounded-lg',
+            note.id === selectedNote.id 
+              ? 'bg-[#a1842c]' 
+              : 'hover:bg-[#a1842c]/15'
+          ]"
+          @click="selectedNote = note">
+            <h3 class="text-sm font-bold truncate text-white">{{ note.text.substring(0, 50)}}</h3>
+            <div class="meta flex gap-4 text-xs ">
+              <span class="text-white ">
+    {{
+      new Date(note.updatedAt).toDateString() === new Date().toDateString()
+        ? 'Today'
+        : new Date(note.updatedAt).toLocaleDateString('it-IT', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          })
+    }}
+  </span>
+              <p>{{ note.text.substring(50, 80) }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Main -->
