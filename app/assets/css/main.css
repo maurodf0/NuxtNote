@@ -18,3 +18,22 @@ form button {
 body {
   font-family: "Inter", sans-serif;
 }
+
+h1 {
+  @apply text-4xl font-bold mb-6 text-gray-100;
+}
+
+h2 {
+  @apply text-2xl font-semibold mb-4 text-gray-200;
+}
+
+/* Paragrafi */
+
+/* Liste */
+ul {
+  @apply list-disc list-inside mb-6 space-y-2 text-gray-300;
+}
+
+li {
+  @apply mb-1;
+}

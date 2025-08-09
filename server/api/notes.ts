@@ -2,7 +2,6 @@
 
 export default defineEventHandler(async (event) => {
   const prisma = new PrismaClient();
-  console.log('Fetching notes...', event);
 
 interface Notes {
   id: number;
