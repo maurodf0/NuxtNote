@@ -16,10 +16,11 @@ const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
 }
 
+const notes = ref([]);
 
 onMounted( async () => {
-  const response = await $fetch('/api/notes');
-  console.log(response);
+  notes.value = await $fetch('/api/notes');
+  
 })
 </script>
 
@@ -37,19 +38,21 @@ onMounted( async () => {
       <div class="today-notes">
         <p class="text-xs color-zinc-800">Today</p>
         <div class="notes-wrapper flex flex-col gap-2 today-container mt-2 pl-2">
-          <div class="single-note flex flex-col gap-1 p-2">
-            <h3 class="text-sm font-bold text-white">Single note for today</h3>
-            <div class="meta flex gap-4 text-xs">
-              <span class="text-white">Today</span>
-              <p>Lorem ipsum dolor sit amet sentiam ki....</p>
-            </div>
-          </div>
-
-          <div class="single-note bg-[#a1842c] rounded-lg flex flex-col gap-1 p-2">
-            <h3 class="text-sm font-bold text-white">Single note for today</h3>
-            <div class="meta flex gap-4 text-xs">
-              <span class="text-white">Today</span>
-              <p>Lorem ipsum dolor sit amet sentiam ki....</p>
+          <div v-for="note in notes" class="single-note flex flex-col gap-1 p-2">
+            <h3 class="text-sm font-bold truncate text-white">{{ note.text.substring(0, 50)}}</h3>
+            <div class="meta flex gap-4 text-xs truncate">
+              <span class="text-white truncate">
+    {{
+      new Date(note.updatedAt).toDateString() === new Date().toDateString()
+        ? 'Today'
+        : new Date(note.updatedAt).toLocaleDateString('it-IT', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          })
+    }}
+  </span>
+              <p>{{ note.text.substring(50, 80) }}</p>
             </div>
           </div>
         </div>
