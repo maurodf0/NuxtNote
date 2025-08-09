@@ -12,7 +12,7 @@ interface Notes {
 }
 
 try{
-  const cookies = useCookies(event)
+  const cookies = parseCookies(event)
   const token = cookies.NuxtNoteJWT;
 
   if (!token) {
