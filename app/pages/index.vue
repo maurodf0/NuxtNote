@@ -106,6 +106,12 @@ const createNote = async () => {
 
 
 }
+
+const logoutUser = () => {
+   const jwt =  useCookie('NuxtNoteJWT');
+   jwt.value = null;
+   navigateTo('/login');
+}
 </script>
 
 <template>
@@ -220,6 +226,9 @@ const createNote = async () => {
           </div>
         </div>
       </div>
+
+      <a class="mt-auto pointer" 
+        @click="logoutUser">Logout</a>
 
     </div>
 
