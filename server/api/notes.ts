@@ -22,7 +22,7 @@ try{
     });
   }
 
-  const decodedToken = await jwt.verify(token, process.env.JWT_SECRET) as string;
+  const decodedToken:any = await jwt.verify(token, process.env.JWT_SECRET);
   const notes: Notes[] = await prisma.note.findMany({
     where: {
       userId: decodedToken.id,

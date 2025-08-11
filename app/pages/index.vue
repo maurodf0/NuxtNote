@@ -86,6 +86,22 @@ const updateNote = async () => {
     console.log(err);
   }
 }
+
+const createNote = async () => {
+  try {
+  const res = $fetch('api/notes', {
+    method: 'POST',
+    body: {
+      newNote: selectedNote.text
+    }
+  })
+  console.log(res);
+  } catch(err){
+    console.log(err)
+  }
+
+
+}
 </script>
 
 <template>
