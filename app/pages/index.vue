@@ -25,7 +25,7 @@ const todayNotes = computed(() => {
 return notes.value.filter( (note) => {
   const noteDate = new Date(note.updatedAt);
   return noteDate.toDateString() === new  Date().toDateString()
-}).sort( (a, b) =>  new Date(b.updatedAt) - new Date(a.updatedAt))
+})
 })
 
 const yesterdayyNotes = computed(() => {
@@ -54,6 +54,7 @@ const olderNotes = computed(() => {
 
 onMounted( async () => {
   notes.value = await $fetch('/api/notes');
+  notes.value.sort( (a, b) =>  new Date(b.updatedAt) - new Date(a.updatedAt))
   if(notes.value.length > 0) {
   selectedNote.value = notes.value[0];
   updatedNote.value = selectedNote.value.text
