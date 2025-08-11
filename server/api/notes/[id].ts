@@ -9,21 +9,24 @@ import { PrismaClient } from '@prisma/client';
 
 export default defineEventHandler(async (event) => {
   try {
-    const body = await readBody(event);
-    console.log('Received body:', body);
+  const { noteId, updatedNote } = await readBody<{ noteId: number; updatedNote: Note }>(event);
     const prisma = new PrismaClient();
 
     const res = await prisma.note.update({
       where: {
-        id: body.noteId,
+        id: Number(noteId),
       },
       data: {
-        text: body.updatedNote,
+        text: updatedNote,
         updatedAt: new Date(),
       }
     })
-
-    console.log('Update response:', res);
+    if(!res) {
+      throw createError({
+        statusCode: 404,
+        message: 'Note not found',
+      });
+    }
 
     return {
       message: 'Note updated successfully',

@@ -12,6 +12,7 @@ definePageMeta({
 
 const sidebarOpen = ref<boolean>(true)
 const updatedNote = ref<string>('');
+const loader = ref<boolean>(false);
 
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
@@ -61,6 +62,7 @@ onMounted( async () => {
 
 const updateNote = async () => {
   try {
+    loader.value = true;
     const res = await $fetch(`api/notes/${selectedNote.value.id}`, {
       method: 'PATCH',
       body: {
@@ -69,7 +71,9 @@ const updateNote = async () => {
       }
     })
 
-    console.log(res);
+    if(res){
+      loader.value = false;
+    }
   
   } catch(err) {
     console.log(err);
@@ -215,7 +219,7 @@ const updateNote = async () => {
  @input="updateNote"></textarea>
       </div>
 
-      <div class="bottom-action p-8">
+      <div class="bottom-action p-8 flex justify-between ite">
         <Icon 
           name="material-symbols:arrow-circle-left-rounded"
           class="pointer arrow-left"
@@ -223,6 +227,12 @@ const updateNote = async () => {
           size="26"
           @click="toggleSidebar"
         />
+
+
+  <div class="text-gray-500 flex gap-2"> 
+      <Icon name="SvgSpinners180RingWithBg" size="26"/> Autosaving
+  </div>
+
       </div>
     </div>
   </div>
