@@ -98,7 +98,7 @@ const createNote = async () => {
   })
   notes.value.unshift(newNote);
   selectedNote.value = notes.value[0];
-  updateNote.value = ''
+  updatedNote.value = ''
   textarea.value.focus();
   } catch(err){
     console.log(err)
