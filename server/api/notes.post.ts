@@ -10,7 +10,7 @@ import jwt from 'jsonwebtoken';
 
 export default defineEventHandler(async (event) => {
   try {
-const { newNote } = await readBody <{ newNote: Note }>(event);
+
  const prisma = new PrismaClient();
  const cookies = parseCookies(event)
       const token = cookies.NuxtNoteJWT;
@@ -24,13 +24,16 @@ const { newNote } = await readBody <{ newNote: Note }>(event);
     
    const decodedToken:any = await jwt.verify(token, process.env.JWT_SECRET);
 
-    await prisma.note.create({
+   const newNote = await prisma.note.create({
       data: {
         text: '',
+        userId: decodedToken.id, 
         createdAt: new Date(),
         updatedAt: new Date(),
       }
     })
+    return newNote;
+
   } catch (error) {
     console.error('Error updating note:', error);
     throw createError({

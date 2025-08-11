@@ -25,7 +25,7 @@ const todayNotes = computed(() => {
 return notes.value.filter( (note) => {
   const noteDate = new Date(note.updatedAt);
   return noteDate.toDateString() === new  Date().toDateString()
-})
+}).sort( (a, b) =>  new Date(b.updatedAt) - new Date(a.updatedAt))
 })
 
 const yesterdayyNotes = computed(() => {
@@ -89,13 +89,11 @@ const updateNote = async () => {
 
 const createNote = async () => {
   try {
-  const res = $fetch('api/notes', {
+  const newNote = await $fetch('api/notes', {
     method: 'POST',
-    body: {
-      newNote: selectedNote.text
-    }
   })
-  console.log(res);
+  notes.value.unshift(newNote);
+  selectedNote.value = notes.value[0];
   } catch(err){
     console.log(err)
   }
@@ -125,7 +123,7 @@ const createNote = async () => {
               ? 'bg-[#a1842c]' 
               : 'hover:bg-[#a1842c]/15'
           ]"
-          @click="selectedNote = note">
+            @click="selectedNote = note">
             <h3 class="text-sm font-bold truncate text-white">{{ note.text.substring(0, 50)}}</h3>
             <div class="meta flex gap-4 text-xs ">
               <span class="text-white ">
@@ -235,11 +233,13 @@ const createNote = async () => {
   year: 'numeric'
           })}}</p>
  <textarea 
- v-model="updatedNote"
+v-model="updatedNote"
  name="note" id="note" 
  class="text-gray-300/50 font-light h-full flex-grow focus:outline-none italic mb-4 bg-transparent w-full"
- @input="debouncedFn"></textarea>
-      </div>
+ @input="debouncedFn">
+{{ selectedNote.text }}</textarea>
+      
+</div>
 
       <div class="bottom-action p-8 flex justify-between h-[10vh]">
         <Icon 
