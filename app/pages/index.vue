@@ -10,7 +10,8 @@ definePageMeta({
   middleware: ['token']
 })
 
-const sidebarOpen = ref(true)
+const sidebarOpen = ref<boolean>(true)
+const updatedNote = ref<string>('');
 
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
@@ -54,8 +55,18 @@ onMounted( async () => {
   notes.value = await $fetch('/api/notes');
   if(notes.value.length > 0) {
   selectedNote.value = notes.value[0];
+  updatedNote.value = selectedNote.value.text
   }
 })
+
+const updateNote = async () => {
+  try {
+    await $fetch(`api/notes/${selectedNote.value.id}`)
+  } catch(err) {
+    console.log(err);
+  }
+  console.log(updatedNote.value);
+}
 </script>
 
 <template>
@@ -188,7 +199,11 @@ onMounted( async () => {
   month: 'long',
   year: 'numeric'
           })}}</p>
- <p class="text-gray-300/35 font-light italic mb-4" v-html="selectedNote.text"></p>
+ <textarea 
+ v-model="updatedNote"
+ name="note" id="note" 
+ class="text-gray-300/50 font-light focus:outline-none italic mb-4 bg-transparent w-full"
+ @input="updateNote">{{ selectedNote.text }}</textarea>
       </div>
 
       <div class="bottom-action p-8">
