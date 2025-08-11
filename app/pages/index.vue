@@ -60,6 +60,11 @@ onMounted( async () => {
   }
 })
 
+const debouncedFn = useDebounceFn(async() => {
+   await updateNote()
+}, 1000)
+
+
 const updateNote = async () => {
   try {
     loader.value = true;
@@ -217,7 +222,7 @@ const updateNote = async () => {
  v-model="updatedNote"
  name="note" id="note" 
  class="text-gray-300/50 font-light h-full flex-grow focus:outline-none italic mb-4 bg-transparent w-full"
- @input="updateNote"></textarea>
+ @input="debouncedFn"></textarea>
       </div>
 
       <div class="bottom-action p-8 flex justify-between h-[10vh]">

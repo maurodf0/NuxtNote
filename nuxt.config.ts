@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/eslint',
     '@nuxtjs/tailwindcss',
-    '@prisma/nuxt'
+    '@prisma/nuxt',
+    '@vueuse/nuxt',
   ]
 })
