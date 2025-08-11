@@ -13,15 +13,17 @@ export default defineEventHandler(async (event) => {
     console.log('Received body:', body);
     const prisma = new PrismaClient();
 
-    await prisma.note.update({
+    const res = await prisma.note.update({
       where: {
         id: body.noteId,
       },
       data: {
-        text: body.updatedNote.text,
+        text: body.updatedNote,
         updatedAt: new Date(),
       }
     })
+
+    console.log('Update response:', res);
 
     return {
       message: 'Note updated successfully',
