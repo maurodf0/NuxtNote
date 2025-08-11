@@ -72,13 +72,14 @@ const updateNote = async () => {
     })
 
     if(res){
-      loader.value = false;
+      setTimeout( () => {
+        loader.value = false;
+      }, 900);
     }
   
   } catch(err) {
     console.log(err);
   }
-  console.log(updatedNote.value);
 }
 </script>
 
@@ -229,8 +230,9 @@ const updateNote = async () => {
         />
 
 
-  <div class="text-gray-500 flex gap-2"> 
-      <Icon name="SvgSpinners180RingWithBg" size="26"/> Autosaving
+  <div v-if="loader"
+  class="text-gray-500 flex gap-2"> 
+      <Icon name="SvgSpinners180RingWithBg" size="26"/> Saving your notes...
   </div>
 
       </div>
