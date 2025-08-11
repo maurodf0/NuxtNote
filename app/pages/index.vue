@@ -94,6 +94,7 @@ const createNote = async () => {
   })
   notes.value.unshift(newNote);
   selectedNote.value = notes.value[0];
+  updateNote.value = ''
   } catch(err){
     console.log(err)
   }
@@ -123,7 +124,10 @@ const createNote = async () => {
               ? 'bg-[#a1842c]' 
               : 'hover:bg-[#a1842c]/15'
           ]"
-            @click="selectedNote = note">
+            @click=" () => {
+              selectedNote = note
+              updatedNote = note.text
+            }">
             <h3 class="text-sm font-bold truncate text-white">{{ note.text.substring(0, 50)}}</h3>
             <div class="meta flex gap-4 text-xs ">
               <span class="text-white ">
@@ -153,7 +157,10 @@ const createNote = async () => {
               ? 'bg-[#a1842c]' 
               : 'hover:bg-[#a1842c]/15'
           ]"
-          @click="selectedNote = note">
+           @click=" () => {
+              selectedNote = note
+              updatedNote = note.text
+            }">
             <h3 class="text-sm font-bold truncate text-white">{{ note.text.substring(0, 50)}}</h3>
             <div class="meta flex gap-4 text-xs ">
               <span class="text-white ">
@@ -186,7 +193,10 @@ const createNote = async () => {
               ? 'bg-[#a1842c]' 
               : 'hover:bg-[#a1842c]/15'
           ]"
-          @click="selectedNote = note">
+         @click=" () => {
+              selectedNote = note
+              updatedNote = note.text
+            }">
             <h3 class="text-sm font-bold truncate text-white">{{ note.text.substring(0, 50)}}</h3>
             <div class="meta flex gap-4 text-xs ">
               <span class="text-white ">
