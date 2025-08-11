@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { text } from 'stream/consumers';
+
   useHead({
     title: 'NuxtNote | Your Personal Note-Taking App made with Nuxt',
     meta: [
@@ -13,6 +15,7 @@ definePageMeta({
 const sidebarOpen = ref<boolean>(true)
 const updatedNote = ref<string>('');
 const loader = ref<boolean>(false);
+const textarea = templateRef(null);
 
 const toggleSidebar = () => {
   sidebarOpen.value = !sidebarOpen.value
@@ -96,6 +99,7 @@ const createNote = async () => {
   notes.value.unshift(newNote);
   selectedNote.value = notes.value[0];
   updateNote.value = ''
+  textarea.value.focus();
   } catch(err){
     console.log(err)
   }
@@ -244,6 +248,8 @@ const createNote = async () => {
   year: 'numeric'
           })}}</p>
  <textarea 
+ ref="textarea"
+ placeholder="Your writing journey start now..."
 v-model="updatedNote"
  name="note" id="note" 
  class="text-gray-300/50 font-light h-full flex-grow focus:outline-none italic mb-4 bg-transparent w-full"
