@@ -253,7 +253,10 @@ const createNote = async () => {
 v-model="updatedNote"
  name="note" id="note" 
  class="text-gray-300/50 font-light h-full flex-grow focus:outline-none italic mb-4 bg-transparent w-full"
- @input="debouncedFn">
+ @input=" () => {
+  debouncedFn()
+  selectedNote.text = updatedNote
+ }">
 {{ selectedNote.text }}</textarea>
       
 </div>
