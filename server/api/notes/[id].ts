@@ -13,24 +13,19 @@ export default defineEventHandler(async (event) => {
     console.log('Received body:', body);
     const prisma = new PrismaClient();
 
-    const updatedNote: Note = body.updatedNote;
-
-    if(!updatedNote || !updatedNote.id) {
-      throw createError({
-        statusCode: 400,
-        message: 'Invalid note data',
-      });
-    }
-
     await prisma.note.update({
       where: {
         id: body.noteId,
       },
       data: {
-        text: updatedNote.text,
+        text: body.updatedNote.text,
         updatedAt: new Date(),
       }
     })
+
+    return {
+      message: 'Note updated successfully',
+    }
 
   } catch (error) {
     console.error('Error in notes handler:', error);

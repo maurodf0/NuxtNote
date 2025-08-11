@@ -61,13 +61,15 @@ onMounted( async () => {
 
 const updateNote = async () => {
   try {
-    await $fetch(`api/notes/${selectedNote.value.id}`, {
+    const res = await $fetch(`api/notes/${selectedNote.value.id}`, {
       method: 'PATCH',
       body: {
         updatedNote: updatedNote.value,
         noteId: selectedNote.value.id
       }
     })
+
+    console.log(res);
   
   } catch(err) {
     console.log(err);
