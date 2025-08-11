@@ -211,8 +211,8 @@ const updateNote = async () => {
  <textarea 
  v-model="updatedNote"
  name="note" id="note" 
- class="text-gray-300/50 font-light focus:outline-none italic mb-4 bg-transparent w-full"
- @input="updateNote">{{ selectedNote.text }}</textarea>
+ class="text-gray-300/50 font-light min-h-[700px] focus:outline-none italic mb-4 bg-transparent w-full"
+ @input="updateNote"></textarea>
       </div>
 
       <div class="bottom-action p-8">
