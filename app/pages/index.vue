@@ -74,7 +74,7 @@ const updateNote = async () => {
     if(res){
       setTimeout( () => {
         loader.value = false;
-      }, 900);
+      }, 1200);
     }
   
   } catch(err) {
@@ -191,10 +191,10 @@ const updateNote = async () => {
 
     <!-- Main -->
     <div 
-      class="main bg-neutral-900 md:w-[75%] w-full"
+      class="main bg-neutral-900 md:w-[75%] w-full flex flex-col justify-between"
       :class="{ full: !sidebarOpen }"
     >
-      <div class="flex justify-between p-8 align-middle items-center">
+      <div class="h-[10vh] flex justify-between p-8 align-middle items-center">
         <button @click="createNote" class="flex items-center gap-2 hover:text-gray-500">
           <Icon name="material-symbols:add" size="20" />
           <span>Create Note</span>
@@ -204,7 +204,7 @@ const updateNote = async () => {
         </button>
       </div>
 
-      <div class="note min-h-[70vh] max-w-lg mx-auto mt-4">
+      <div class="note max-w-lg w-full mx-auto mt-4 h-[70vh]">
         <p class="text-gray-300/50 font-light italic text-xs mb-2">{{ new Date(selectedNote.updatedAt).toDateString() === new Date().toDateString()
         ? 'Today'
         : new Date(selectedNote.updatedAt).toLocaleDateString('it-IT', {
@@ -216,11 +216,11 @@ const updateNote = async () => {
  <textarea 
  v-model="updatedNote"
  name="note" id="note" 
- class="text-gray-300/50 font-light min-h-[400px] focus:outline-none italic mb-4 bg-transparent w-full"
+ class="text-gray-300/50 font-light h-full flex-grow focus:outline-none italic mb-4 bg-transparent w-full"
  @input="updateNote"></textarea>
       </div>
 
-      <div class="bottom-action p-8 flex justify-between ite">
+      <div class="bottom-action p-8 flex justify-between h-[10vh]">
         <Icon 
           name="material-symbols:arrow-circle-left-rounded"
           class="pointer arrow-left"
@@ -232,7 +232,7 @@ const updateNote = async () => {
 
   <div v-if="loader"
   class="text-gray-500 flex gap-2"> 
-      <Icon name="SvgSpinners180RingWithBg" size="26"/> Saving your notes...
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><!-- Icon from SVG Spinners by Utkarsh Verma - https://github.com/n3r4zzurr0/svg-spinners/blob/main/LICENSE --><path fill="currentColor" d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg> Saving your note...
   </div>
 
       </div>
