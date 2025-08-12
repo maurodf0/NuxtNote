@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "prisma generate && nuxt build",
+    "migrate": "prisma migrate deploy",
     "dev": "nuxt dev",
     "start": "nuxt start",
     "generate": "nuxt generate",
