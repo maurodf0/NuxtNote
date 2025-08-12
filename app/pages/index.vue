@@ -60,8 +60,10 @@ onMounted( async () => {
   notes.value.sort( (a, b) =>  new Date(b.updatedAt) - new Date(a.updatedAt))
   if(notes.value.length > 0) {
   selectedNote.value = notes.value[0];
-  updatedNote.value = selectedNote.value.text
+  } else {
+    await createNote();
   }
+    updatedNote.value = selectedNote.value.text
 })
 
 const debouncedFn = useDebounceFn(async() => {
