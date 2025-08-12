@@ -106,8 +106,6 @@ const createNote = async () => {
   } catch(err){
     console.log(err)
   }
-
-
 }
 
 const logoutUser = () => {
@@ -119,6 +117,10 @@ const logoutUser = () => {
 const setNote = (note) => {
   selectedNote.value = note
   updatedNote.value = note.text
+  // Chiudi sidebar su mobile dopo aver selezionato una nota
+  if (window.innerWidth < 768) {
+    sidebarOpen.value = false
+  }
 }
 
 const deleteNote = async (note) => {
@@ -171,12 +173,23 @@ const index = notes.value.findIndex(n => n.id === note.id);
 </script>
 
 <template>
-  <div class="h-screen flex flex-col md:flex-row">
+  <div class="h-screen flex relative">
+    
+    <!-- Overlay per mobile -->
+    <div 
+      v-if="sidebarOpen" 
+      class="fixed inset-0 bg-black/50 z-10 md:hidden"
+      @click="sidebarOpen = false"
+    ></div>
     
     <!-- Sidebar -->
     <div 
-      class="sidebar bg-neutral-800 md:w-[25%] h-full p-8 w-full flex flex-col overflow-y-scroll"
-      :class="{ close: !sidebarOpen }"
+      class="sidebar bg-neutral-800 h-full p-8 flex flex-col overflow-y-scroll z-20 fixed md:relative"
+      :class="{ 
+        'sidebar-open': sidebarOpen, 
+        'sidebar-closed': !sidebarOpen,
+        'md:w-[25%]': true
+      }"
     >
     <div class="logo">
       <Logo class="mb-8" />
@@ -283,13 +296,16 @@ const index = notes.value.findIndex(n => n.id === note.id);
 
     <!-- Main -->
     <div 
-      class="main bg-neutral-900 md:w-[75%] w-full flex flex-col justify-between"
-      :class="{ full: !sidebarOpen }"
+      class="main bg-neutral-900 w-full md:w-[75%] flex flex-col justify-between"
+      :class="{ 
+        'md:ml-0': !sidebarOpen,
+        'md:w-full': !sidebarOpen 
+      }"
     >
-      <div class="h-[10vh] flex justify-between p-8 align-middle items-center">
+      <div class="h-[10vh] flex justify-between p-4 md:p-8 align-middle items-center">
         <button @click="createNote" class="flex items-center gap-2 hover:text-gray-500">
           <Icon name="material-symbols:add" size="20" />
-          <span>Create Note</span>
+          <span class="hidden sm:inline">Create Note</span>
         </button>
         <button>
           <Icon 
@@ -299,7 +315,7 @@ const index = notes.value.findIndex(n => n.id === note.id);
         </button>
       </div>
 
-      <div class="note max-w-lg w-full mx-auto mt-4 h-[70vh]">
+      <div class="note max-w-none md:max-w-lg w-full mx-auto mt-4 h-[70vh] px-4 md:px-0">
         <p class="text-gray-300/50 font-light italic text-xs mb-2">{{ new Date(selectedNote.updatedAt).toDateString() === new Date().toDateString()
         ? 'Today'
         : new Date(selectedNote.updatedAt).toLocaleDateString('it-IT', {
@@ -313,7 +329,7 @@ const index = notes.value.findIndex(n => n.id === note.id);
  placeholder="Your writing journey start now..."
 v-model="updatedNote"
  name="note" id="note" 
- class="text-gray-300/50 font-light h-full flex-grow focus:outline-none italic mb-4 bg-transparent w-full"
+ class="text-gray-300/50 font-light h-full flex-grow focus:outline-none italic mb-4 bg-transparent w-full p-4 resize-none"
  @input=" () => {
   debouncedFn()
   selectedNote.text = updatedNote
@@ -322,7 +338,7 @@ v-model="updatedNote"
       
 </div>
 
-      <div class="bottom-action p-8 flex justify-between h-[10vh]">
+      <div class="bottom-action p-4 md:p-8 flex justify-between h-[10vh]">
         <Icon 
           name="material-symbols:arrow-circle-left-rounded"
           class="pointer arrow-left"
@@ -331,10 +347,10 @@ v-model="updatedNote"
           @click="toggleSidebar"
         />
 
-
   <div v-if="loader"
   class="text-gray-500 flex gap-2"> 
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><!-- Icon from SVG Spinners by Utkarsh Verma - https://github.com/n3r4zzurr0/svg-spinners/blob/main/LICENSE --><path fill="currentColor" d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg> Saving your note...
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><!-- Icon from SVG Spinners by Utkarsh Verma - https://github.com/n3r4zzurr0/svg-spinners/blob/main/LICENSE --><path fill="currentColor" d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z"><animateTransform attributeName="transform" dur="0.75s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></svg> 
+      <span class="hidden sm:inline">Saving your note...</span>
   </div>
 
       </div>
@@ -345,31 +361,44 @@ v-model="updatedNote"
 
 <style scoped>
 .sidebar {
-  transition: opacity .15s ease-in-out;
-  transition: width .5s ease-in-out;
-
-
+  transition: transform 0.3s ease-in-out;
+  width: 320px;
 }
 
-.sidebar.close {
-  width: 0;
-  padding: 0;
+/* Mobile: sidebar nascosta di default */
+@media (max-width: 767px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+  
+  .sidebar-open {
+    transform: translateX(0);
+  }
+}
+
+/* Desktop: comportamento normale */
+@media (min-width: 768px) {
+  .sidebar {
+    transform: translateX(0);
+    transition: width 0.5s ease-in-out, opacity 0.15s ease-in-out;
+  }
+  
+  .sidebar-closed {
+    width: 0;
+    padding: 0;
+    opacity: 0;
+  }
 }
 
 .main {
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 .arrow-left {
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
-.arrow-left.rotate{
-transform: rotate(180deg);
-}
-
-
-.main.full {
-  width: 100%;
+.arrow-left.rotate {
+  transform: rotate(180deg);
 }
 </style>

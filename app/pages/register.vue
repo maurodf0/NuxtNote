@@ -93,8 +93,40 @@ const { isConfirmed } = await Swal.fire({
       </form>
 
     </div>
-    <div class="main bg-zinc-800 md:w-[70%] w-full">
-      <h1>Main</h1>
+ <!-- Presentation Section -->
+    <div class="main bg-zinc-800 md:w-[70%] w-full flex items-center justify-center p-8">
+      <div class="max-w-xl text-center">
+        <h1 class="text-gray-100">NuxtNote</h1>
+        <p class="text-gray-300 text-lg mb-8">
+          Your simple, powerful note-taking companion
+        </p>
+        
+        <div class="space-y-6 text-left">
+          <div class="flex items-start gap-4">
+            <div class="w-2 h-2 bg-[#FFAC00] rounded-full mt-3 flex-shrink-0"></div>
+            <div>
+              <h3 class="text-gray-200 font-medium mb-1">Write & Organize</h3>
+              <p class="text-gray-400 text-sm">Create, edit and organize your notes with ease</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4">
+            <div class="w-2 h-2 bg-[#FFAC00] rounded-full mt-3 flex-shrink-0"></div>
+            <div>
+              <h3 class="text-gray-200 font-medium mb-1">Always Available</h3>
+              <p class="text-gray-400 text-sm">Access your notes from anywhere, anytime</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4">
+            <div class="w-2 h-2 bg-[#FFAC00] rounded-full mt-3 flex-shrink-0"></div>
+            <div>
+              <h3 class="text-gray-200 font-medium mb-1">Fast & Secure</h3>
+              <p class="text-gray-400 text-sm">Built with Nuxt.js for speed and security</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
