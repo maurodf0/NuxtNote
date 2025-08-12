@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { text } from 'stream/consumers';
+import Swal from 'sweetalert2';
 
   useHead({
     title: 'NuxtNote | Your Personal Note-Taking App made with Nuxt',
@@ -119,6 +120,54 @@ const setNote = (note) => {
   selectedNote.value = note
   updatedNote.value = note.text
 }
+
+const deleteNote = async (note) => {
+  console.log(note);
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  });
+
+  if (result.isConfirmed) {
+    try {
+      const deleteconfirmation = await $fetch('/api/notes', {
+        method: 'DELETE',
+        body: {
+          id: note.id
+        }
+      })
+      if(deleteconfirmation){
+      await Swal.fire({
+        title: "Deleted!",
+        text: "Your file has been deleted.",
+        icon: "success"
+      });
+      console.log(notes.value);
+const index = notes.value.findIndex(n => n.id === note.id);
+  if (index !== -1) {
+    notes.value.splice(index, 1); // rimuove la nota dall'array
+    selectedNote.value = notes.value[0];
+    console.log(selectedNote.value);
+   updatedNote.value = selectedNote.value.text
+  }
+    }
+    } catch (err){
+      console.log(err);
+       await Swal.fire({
+        title: "Error !",
+        text: err,
+        icon: "error"
+      });
+
+    }
+  }
+};
+
 </script>
 
 <template>
@@ -243,7 +292,10 @@ const setNote = (note) => {
           <span>Create Note</span>
         </button>
         <button>
-          <Icon name="material-symbols:delete-forever-outline" size="26" class="hover:text-gray-500" />
+          <Icon 
+          name="material-symbols:delete-forever-outline" size="26" 
+          class="hover:text-gray-500" 
+          @click="deleteNote(selectedNote)"/>
         </button>
       </div>
 
