@@ -2,16 +2,16 @@
 export default defineNuxtConfig({
 vite: {
   ssr: {
-    noExternal: ['@prisma/client'],
+    noExternal: ['@prisma/nuxt'],
     external: []
   },
   optimizeDeps: {
-    exclude: ['@prisma/client']
+    exclude: ['@prisma/nuxt']
   }
 },
 nitro: {
   externals: {
-    inline: ['@prisma/client'],
+    inline: ['@prisma/nuxt'],
     external: []
   }
 }
