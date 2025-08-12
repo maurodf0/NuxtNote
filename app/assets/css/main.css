@@ -7,6 +7,24 @@ body {
   @apply bg-gray-900 text-gray-300;
 }
 
+/* Stile della scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* larghezza */
+}
+
+::-webkit-scrollbar-track {
+  background: theme("colors.zinc.800"); /* colore sfondo track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme("colors.zinc.600"); /* colore del pollice */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: theme("colors.zinc.700");
+}
+
 a {
   @apply text-[#FFAC00];
 }

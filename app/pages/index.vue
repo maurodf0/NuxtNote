@@ -114,6 +114,11 @@ const logoutUser = () => {
    jwt.value = null;
    navigateTo('/login');
 }
+
+const setNote = (note) => {
+  selectedNote.value = note
+  updatedNote.value = note.text
+}
 </script>
 
 <template>
@@ -121,10 +126,12 @@ const logoutUser = () => {
     
     <!-- Sidebar -->
     <div 
-      class="sidebar bg-neutral-800 md:w-[25%] flex p-8 flex-col w-full"
+      class="sidebar bg-neutral-800 md:w-[25%] h-full p-8 w-full flex flex-col overflow-y-scroll"
       :class="{ close: !sidebarOpen }"
     >
+    <div class="logo">
       <Logo class="mb-8" />
+      </div>
       <h1 class="text-white text-xl mb-4">Write your Note everywhere</h1>
 
       <div class="today-notes">
@@ -137,10 +144,7 @@ const logoutUser = () => {
               ? 'bg-[#a1842c]' 
               : 'hover:bg-[#a1842c]/15'
           ]"
-            @click=" () => {
-              selectedNote = note
-              updatedNote = note.text
-            }">
+            @click="setNote(note)">
             <h3 class="text-sm font-bold truncate text-white">{{ note.text.substring(0, 50)}}</h3>
             <div class="meta flex gap-4 text-xs ">
               <span class="text-white ">
@@ -170,11 +174,8 @@ const logoutUser = () => {
               ? 'bg-[#a1842c]' 
               : 'hover:bg-[#a1842c]/15'
           ]"
-           @click=" () => {
-              selectedNote = note
-              updatedNote = note.text
-            }">
-            <h3 class="text-sm font-bold truncate text-white">{{ note.text.substring(0, 50)}}</h3>
+           @click="setNote(note)">
+            <h3 class="text-sm font-bold truncate text-white">{{ note.text ? note.text.substring(0, 50) : 'Your note'}}</h3>
             <div class="meta flex gap-4 text-xs ">
               <span class="text-white ">
     {{
@@ -206,10 +207,7 @@ const logoutUser = () => {
               ? 'bg-[#a1842c]' 
               : 'hover:bg-[#a1842c]/15'
           ]"
-         @click=" () => {
-              selectedNote = note
-              updatedNote = note.text
-            }">
+         @click="setNote(note)">
             <h3 class="text-sm font-bold truncate text-white">{{ note.text.substring(0, 50)}}</h3>
             <div class="meta flex gap-4 text-xs ">
               <span class="text-white ">
