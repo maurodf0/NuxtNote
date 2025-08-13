@@ -188,7 +188,7 @@ const index = notes.value.findIndex(n => n.id === note.id);
       :class="{ 
         'sidebar-open': sidebarOpen, 
         'sidebar-closed': !sidebarOpen,
-        'md:w-[25%]': true
+        'md:w-[40%]': true
       }"
     >
     <div class="logo">
@@ -296,7 +296,7 @@ const index = notes.value.findIndex(n => n.id === note.id);
 
     <!-- Main -->
     <div 
-      class="main bg-neutral-900 w-full md:w-[75%] flex flex-col justify-between"
+      class="main bg-neutral-900 w-full flex flex-col justify-between"
       :class="{ 
         'md:ml-0': !sidebarOpen,
         'md:w-full': !sidebarOpen 
