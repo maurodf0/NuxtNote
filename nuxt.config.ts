@@ -1,24 +1,30 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-vite: {
-  ssr: {
-    noExternal: ['@prisma/nuxt'],
-    external: []
-  },
-  optimizeDeps: {
-    exclude: ['@prisma/nuxt']
-  }
-},
-nitro: {
-  externals: {
-    inline: ['@prisma/nuxt'],
-    external: []
-  }
-}
-,
-  compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   css: ['@/assets/css/main.css'],
+
+  vite: {
+    ssr: {
+      noExternal: ['@prisma/nuxt'],
+      external: []
+    },
+    optimizeDeps: {
+      exclude: ['@prisma/nuxt']
+    }
+  },
+
+  nitro: {
+    externals: {
+      inline: ['@prisma/nuxt'],
+      external: []
+    },
+    // ✅ Forza la copia degli asset generati dal PWA in produzione su Vercel
+    publicAssets: [
+      { baseURL: '/', dir: 'public' },
+      { baseURL: '/', dir: '.output/public' }
+    ]
+  },
+
   modules: [
     '@nuxt/fonts',
     '@nuxt/icon',
@@ -28,36 +34,40 @@ nitro: {
     '@vueuse/nuxt',
     '@vite-pwa/nuxt'
   ],
-pwa: {
-      registerType: 'autoUpdate',
-      devOptions: {
-        enabled: true,
-      },
-       workbox: {
+
+  pwa: {
+    registerType: 'autoUpdate',
+    devOptions: {
+      enabled: true,
+      suppressWarnings: true
+    },
+    workbox: {
       navigateFallback: '/',
       globPatterns: ['**/*.{js,css,html,png,svg,webmanifest}'],
-      globIgnores: ['**/node_modules/**/*', '**/@fs/**/*'],
+      globIgnores: ['**/node_modules/**/*', '**/@fs/**/*']
     },
-      manifestFilename: 'nn-manifest.webmanifest',
-      includeAssets: ['favicon.ico', 'robots.txt'],
-      manifest: {
-              name: 'Nuxt Notes - Your simple, powerful note-taking companion',
-        short_name: 'NuxtNotes',
-        description: 'Your simple, powerful note-taking companion',
-        theme_color: '#000000',
-        icons: [
-          {
-            src: 'nn-pwa-192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: 'nn-pwa-512.png',
-            sizes: '512x512',
-            type: 'image/png',
-          },
-        ],
-      },
-    },
-    
+    manifestFilename: 'nn-manifest.webmanifest',
+    includeAssets: ['favicon.ico', 'robots.txt'],
+    manifest: {
+      name: 'Nuxt Notes - Your simple, powerful note-taking companion',
+      short_name: 'NuxtNotes',
+      description: 'Your simple, powerful note-taking companion',
+      start_url: '/',
+      display: 'standalone',
+      background_color: '#ffffff',
+      theme_color: '#000000',
+      icons: [
+        {
+          src: 'nn-pwa-192.png',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: 'nn-pwa-512.png',
+          sizes: '512x512',
+          type: 'image/png'
+        }
+      ]
+    }
+  }
 })
