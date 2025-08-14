@@ -26,5 +26,31 @@ nitro: {
     '@nuxtjs/tailwindcss',
     //'@prisma/nuxt',
     '@vueuse/nuxt',
-  ]
+    '@vite-pwa/nuxt'
+  ],
+pwa: {
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: true,
+      },
+      includeAssets: ['favicon.ico', 'robots.txt'],
+      manifest: {
+              name: 'Nuxt Notes - Your simple, powerful note-taking companion',
+        short_name: 'NuxtNotes',
+        description: 'Your simple, powerful note-taking companion',
+        theme_color: '#000000',
+        icons: [
+          {
+            src: 'nn-192x192.png',
+            sizes: '192x192',
+            type: 'image/png',
+          },
+          {
+            src: 'nn-512x512.png',
+            sizes: '512x512',
+            type: 'image/png',
+          },
+        ],
+      },
+    },
 })
