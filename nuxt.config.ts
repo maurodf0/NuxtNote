@@ -33,6 +33,12 @@ pwa: {
       devOptions: {
         enabled: true,
       },
+       workbox: {
+      navigateFallback: '/',
+      globPatterns: ['**/*.{js,css,html,png,svg,webmanifest}'],
+      globIgnores: ['**/node_modules/**/*', '**/@fs/**/*'],
+    },
+      manifestFilename: 'nn-manifest.webmanifest',
       includeAssets: ['favicon.ico', 'robots.txt'],
       manifest: {
               name: 'Nuxt Notes - Your simple, powerful note-taking companion',
@@ -53,4 +59,5 @@ pwa: {
         ],
       },
     },
+    
 })
