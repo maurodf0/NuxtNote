@@ -358,7 +358,7 @@ const deleteNote = async (note: any) => {
           v-model="updatedNote"
           name="note"
           id="note" 
-          class="text-gray-300/50 block font-light h-auto flex-grow overflow-clip focus:outline-none italic mb-4 bg-transparent w-full py-4 resize-none"
+          class="text-gray-300/50 block font-light h-[80%] flex-grow focus:outline-none italic mb-4 bg-transparent w-full py-4 resize-none"
           @input="() => { debouncedFn(); selectedNote.text = updatedNote }"
         />
       </div>
