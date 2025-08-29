@@ -28,9 +28,9 @@ try{
       userId: decodedToken.id,
     }
   });
-  
+   
   return notes;   
- 
+
 } catch (error) {
   console.error('Error fetching notes:', error);
   };

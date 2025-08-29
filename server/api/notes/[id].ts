@@ -1,5 +1,6 @@
 interface Note {
   id: number;
+  title: string;
   text: string;
   createdAt: Date;
   updatedAt: Date;
@@ -10,10 +11,8 @@ import jwt from 'jsonwebtoken';
 
 export default defineEventHandler(async (event) => {
   try {
-  const { noteId, updatedNote, titleNote } = await readBody<{ noteId: number; updatedNote: Note }>(event);
+  const { noteId, updatedNote, titleNote } = await readBody<{ noteId: number; updatedNote: Note, titleNote: string }>(event);
     const prisma = new PrismaClient();
-
-    console.log('Received data:', { noteId, updatedNote, titleNote });
 
       const cookies = parseCookies(event)
       const token = cookies.NuxtNoteJWT;
@@ -55,6 +54,7 @@ export default defineEventHandler(async (event) => {
         id: Number(noteId),
       },
       data: {
+        title: titleNote,
         text: updatedNote,
         updatedAt: new Date(),
       }
