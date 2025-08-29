@@ -11,7 +11,7 @@ import jwt from 'jsonwebtoken';
 
 export default defineEventHandler(async (event) => {
   try {
-  const { noteId, updatedNote, titleNote } = await readBody<{ noteId: number; updatedNote: Note, titleNote: string }>(event);
+  const { noteId, updatedNote, title } = await readBody<{ noteId: number; updatedNote: Note, titleNote: string }>(event);
     const prisma = new PrismaClient();
 
       const cookies = parseCookies(event)
@@ -54,7 +54,7 @@ export default defineEventHandler(async (event) => {
         id: Number(noteId),
       },
       data: {
-        title: titleNote,
+        title: title,
         text: updatedNote,
         updatedAt: new Date(),
       }
@@ -65,7 +65,7 @@ export default defineEventHandler(async (event) => {
         message: 'Note not found',
       });
     }
-
+    console.log('Note updated:', res);
     return {
       message: 'Note updated successfully',
     }

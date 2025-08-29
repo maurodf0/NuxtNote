@@ -75,6 +75,7 @@ const debouncedFn = useDebounceFn(async () => {
 }, 1000)
 
 const updateNote = async () => {
+
   try {
     loader.value = true;
     const res = await $fetch(`/api/notes/${selectedNote.value.id}`, {
@@ -341,23 +342,23 @@ const deleteNote = async (note: any) => {
         </p>
 
         <!-- Input titolo -->
-        <input
+        <textarea
           ref="inputTitle"
           v-model="titleNote"
           name="title"
-          class="text-gray-300/50 font-light flex-grow focus:outline-none italic mb-4 bg-transparent w-full p-4 resize-none text-3xl"
+          class="text-gray-300/50 font-light block flex-grow focus:outline-none italic mb-4 bg-transparent w-full py-8 overflow-clip resize-none text-3xl"
           placeholder="Your note title"
           @input="debouncedFn"
         />
 
-        <!-- Input testo -->
+        <!-- Textarea testo -->
         <textarea 
           ref="textarea"
           placeholder="Your writing journey starts now..."
           v-model="updatedNote"
           name="note"
           id="note" 
-          class="text-gray-300/50 font-light h-full flex-grow focus:outline-none italic mb-4 bg-transparent w-full p-4 resize-none"
+          class="text-gray-300/50 block font-light h-auto flex-grow overflow-clip focus:outline-none italic mb-4 bg-transparent w-full py-4 resize-none"
           @input="() => { debouncedFn(); selectedNote.text = updatedNote }"
         />
       </div>
