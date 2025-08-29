@@ -15,7 +15,7 @@ definePageMeta({
 
 const sidebarOpen = ref<boolean>(true)
 const updatedNote = ref<string>('');
-const titleNote = ref<string>
+const titleNote = ref<string>('');
 const loader = ref<boolean>(false);
 const textarea = templateRef(null);
 
@@ -74,6 +74,7 @@ const debouncedFn = useDebounceFn(async() => {
 }, 1000)
 
 const updateTitleNote = async () => {
+  console.log(titleNote.value);
     try {
     loader.value = true;
     const res = await $fetch(`api/notes/${selectedNote.value.id}`, {
@@ -192,6 +193,7 @@ const index = notes.value.findIndex(n => n.id === note.id);
     }
   }
 };
+
 
 </script>
 
