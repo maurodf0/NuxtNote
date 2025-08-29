@@ -6,6 +6,10 @@ interface User {
   psw: string
 }
 
+const {progress, isloading} = useLoadingIndicator();
+
+console.log(`Loaded ${progress.value}`);
+
 const email = ref<string>('');
 const psw = ref<string>('');
 const msg = ref<string>('');

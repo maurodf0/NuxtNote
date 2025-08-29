@@ -15,6 +15,7 @@ definePageMeta({
 
 const sidebarOpen = ref<boolean>(true)
 const updatedNote = ref<string>('');
+const titleNote = ref<string>
 const loader = ref<boolean>(false);
 const textarea = templateRef(null);
 
@@ -68,9 +69,31 @@ onMounted( async () => {
 })
 
 const debouncedFn = useDebounceFn(async() => {
+  await updateTitleNote()
    await updateNote()
 }, 1000)
 
+const updateTitleNote = async () => {
+    try {
+    loader.value = true;
+    const res = await $fetch(`api/notes/${selectedNote.value.id}`, {
+      method: 'PATCH',
+      body: {
+        titleNote: titleNote.value,
+        noteId: selectedNote.value.id
+      }
+    })
+
+    if(res){
+      setTimeout( () => {
+        loader.value = false;
+      }, 1200);
+    }
+  
+  } catch(err) {
+    console.log(err);
+  }
+}
 
 const updateNote = async () => {
   try {
@@ -324,6 +347,15 @@ const index = notes.value.findIndex(n => n.id === note.id);
   month: 'long',
   year: 'numeric'
           })}}</p>
+          <input
+           ref="inputTitle"
+           v-model="titleNote" 
+           name="title"
+          class="text-gray-300/50 font-light flex-grow focus:outline-none italic mb-4 bg-transparent w-full p-4 resize-none text-3xl"
+          placeholder="Yours note title"
+          @input="debouncedFn">
+
+          </input>
  <textarea 
  ref="textarea"
  placeholder="Your writing journey start now..."
